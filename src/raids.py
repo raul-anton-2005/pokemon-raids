@@ -5,7 +5,7 @@ with open('src/raids2.json', 'r', encoding='utf-8') as file:
 
 matching_raids = [
     raid for raid in data.get("raids", [])
-    if raid.get("pokemon_id") == 854 and raid.get("form") != 2477
+    if raid.get("pokemon_id") == 854 and (raid.get("form") == 2478 or raid.get("form") == 2481)
 ]
 
 if matching_raids:
