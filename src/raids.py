@@ -1,6 +1,6 @@
 import json
 
-with open('raids.json', 'r') as file:
+with open('src/raids2.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
 matching_raids = [
