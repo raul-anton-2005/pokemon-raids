@@ -1,10 +1,29 @@
 import json
+import requests
+import time
 
-with open('src/raids.json', 'r', encoding='utf-8') as file:
-    data = json.load(file)
+def fetch_json(link):
+    timestamp = int(time.time() * 1000)
+    
+    url = f"{link}{timestamp}"
+    
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Error: {response.status_code}")
+        return None
+
+json_nyc = fetch_json("https://nycpokemap.com/raids.php?time=")
+json_sing = fetch_json("https://sgpokemap.com/raids.php?time=")
 
 matching_raids = []
-for raid in data.get("raids", []):
+for raid in json_nyc.get("raids", []):
+    if raid.get("pokemon_id") == 854 and raid.get("form") in [2478, 2481]:
+        matching_raids.append(raid)
+
+for raid in json_sing.get("raids", []):
     if raid.get("pokemon_id") == 854 and raid.get("form") in [2478, 2481]:
         matching_raids.append(raid)
 
